@@ -232,7 +232,51 @@ class Sistema():
                               print(f"El implante con serial {i.ObtrenerS} y de tipo {i} ha sido eliminado del sistema")
             except:  ValueError, TypeError
         
-    
+    def EditarImplante(self):
+         while True:
+              try:
+                    i = AsignarTipoImplante()
+                    a = VerificarSerial()
+                    if a == True:
+                        for i in self.__IventarioImplantes:
+                            if i.ObtenerS == a:
+                                 print("Las modificaciones sólo pueden hacerse a un implante a la vez, dado que dependen del serial")
+                                 cant_cambios = input("Seleccione que cambios desea hacer :\n1-Cambios generales (tamaño, material)\n2-Cambios propios del tipo de implante\n Marcapasos: Número de electrodos, frecuencia y tipo.\n Stent coronario: Longitud y diametro\n Implante dental: Sistema de fijación, forma. \n Prótesis de cadera: Forma. \n Prótesis de rodilla: Forma")
+                                 if cant_cambios == 1:
+                                      tamaño = input("Ingrese el nuevo tamaño: \n")
+                                      material = input("Ingrese el nuevo material: \n")
+                                      i.AsignarT(tamaño)
+                                      i.AsignarM(material)
+                                      
+                                 if cant_cambios == 2:
+                                      if i == 1:
+                                        ne = int(input("Ingrese el número de electrodos: \n"))
+                                        tipo = input("Ingrese el tipo del marcapasos: \n")
+                                        frecuencia = input("Ingrese la frecuencia de estimulación del marcapasos: \n")
+                                        i.AsignarNE(ne)
+                                        i.AsignarTipo(tipo)
+                                        i.AsignarF(frecuencia)
+                                        
+                                      if i ==2:
+                                            long = input("Ingrese la longitud del Stent coronario: \n")
+                                            diam = input("Ingrese el diámetro del Stent coronario: \n")
+                                            i.AsignarLongitud(long)
+                                            i.AsignarDiametro(diam)
+                                      if i ==3:
+                                            sfij = input("Ingrese el sistema de fijación del implante dental: \n")
+                                            forma = input("Ingrese la forma del implante dental: \n")
+                                            i.AsignarSF(sfij)
+                                            i.AsignarForma(forma)
+                                      if i == 4:
+                                            tfij = input("Ingrese el tipo de fijación de la prótesis de cadera: \n")
+                                            i.AsignarTF(tfij)
+                                
+                                      if i == 5:
+                                            tfij = input("Ingrese el tipo de fijación de la prótesis de rodilla: \n")
+                                            i.AsignarTF(tfij)
+                                            pass        
+              except: ValueError, TypeError
+              print("Es importante que en los campos donde hay opciones numéricas escoja una de las presentadas")
 
  
      #eliminarlos, editar su información y visualizar el inventario completo.
