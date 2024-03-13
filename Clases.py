@@ -124,57 +124,115 @@ class Paciente():
 
  #nuevos implantes, eliminarlos, editar su información y visualizar el inventario completo.
 
-#Funciones
-def VerificarSerial(self):
+def AsignarTipoImplante(self):
         while True:
-            try:    
-                    existe = True
-                    Tipo_Im = input("Ingrese el tipo de implante a buscar: \n1-Marcapasos\n2-Stent coronario\n3-Implante dental\n4-Implante cadera\n5-Implante rodilla")
-                    if Tipo_Im == 1:
-                        i = Marcapasos()
-                        pass
-                        
-                    if Tipo_Im == 2:
-                        i = Stent_Coronario()
-                        pass
-                    if Tipo_Im == 3:
-                        i = Implante_Dental()
-                        pass
-                    if Tipo_Im == 4:
-                        i = Implante_Cadera()
-                        pass
-                    if Tipo_Im == 5:
-                        i = Implante_Rodilla()
-                        pass
-                    
-                    while True: 
+            try:
+                Tipo_Im = input("Ingrese el tipo de implante a buscar: \n1-Marcapasos\n2-Stent coronario\n3-Implante dental\n4-Implante cadera\n5-Implante rodilla")
+                if Tipo_Im == 1:
+                    i = Marcapasos()
+                    return i
+                if Tipo_Im == 2:
+                    i = Stent_Coronario()
+                    return i
+                if Tipo_Im == 3:
+                    i = Implante_Dental()
+                    return i
+                if Tipo_Im == 4:
+                    i = Implante_Cadera()
+                    return i
+                if Tipo_Im == 5:
+                    i = Implante_Rodilla()
+                    return i
+                
+            except: ValueError, TypeError
+            print("Por favor ingrese uno de los valores numéricos asignados.")
+            continue
+def VerificarSerial():
+    i = AsignarTipoImplante()
+    while True: 
                         try :
                                 s = input("Ingrese el serial del implante")
                                 if s is int:
                                     serial = i.ObtenerS()
 
                                     if serial == s: 
-                                        print("El serial ingresado corresponde a otro implante de la misma categoría, ingrese uno distinto para el registro.")
-                                        continue
+                                        print("El serial ingresado corresponde a otro implante de la misma categoría, si pretende hacer un registro ingrese uno distinto.")
+                                        op1 = int(input("¿Desea hacer un registro?\n 1-Si\n2-No."))
+                                        if op1 == 1:
+                                            continue
+                                        if op1 == 2:
+                                             existe = True
+                                             return existe
                                     else:
                                         existe = False
-                                        return s, existe
-                                    
+                                        return existe
                         except: ValueError, TypeError
-                        print("Ingrese únicamente valores numéricos")
-                        continue
-                
-            except: ValueError, TypeError
-            print("Por favor ingrese uno de los valores numéricos asignados.")
-            continue
-
+                        print("Ingrese únicamente valores numéricos, sin puntos o comas de por medio")
+        
 
 class Sistema():
     def __init__(self):
         self.__listaPAC ={}
         self.__IventarioImplantes = []
+    
+    def IngresarImplante(self):
+            while True:
+                try:
+                    i = AsignarTipoImplante()
+                    a = VerificarSerial()
+                    if a == False:
+                        t = input("Ingrese el tamaño del implante: \n")
+                        m = input("Ingrese el material del implante: \n")
+                        i.AsignarT(t)
+                        i.AsignarM(m)
+                        if i == 1:
+                                ne = int(input("Ingrese el número de electrodos: \n"))
+                                tipo = input("Ingrese el tipo del marcapasos: \n")
+                                frecuencia = input("Ingrese la frecuencia de estimulación del marcapasos: \n")
+                                i.AsignarNE(ne)
+                                i.AsignarTipo(tipo)
+                                i.AsignarF(frecuencia)
+                                pass
+                        if i ==2:
+                                long = input("Ingrese la longitud del Stent coronario: \n")
+                                diam = input("Ingrese el diámetro del Stent coronario: \n")
+                                i.AsignarLongitud(long)
+                                i.AsignarDiametro(diam)
+                                pass
+                        if i ==3:
+                                sfij = input("Ingrese el sistema de fijación del implante dental: \n")
+                                forma = input("Ingrese la forma del implante dental: \n")
+                                i.AsignarSF(sfij)
+                                i.AsignarForma(forma)
+                                pass
+                        if i == 4:
+                                tfij = input("Ingrese el tipo de fijación de la prótesis de cadera: \n")
+                                i.AsignarTF(tfij)
+                                pass
+                        if i == 5:
+                                tfij = input("Ingrese el tipo de fijación de la prótesis de rodilla: \n")
+                                i.AsignarTF(tfij)
+                                pass
+                    self.__IventarioImplantes.append(i)
 
-    def Ingresar_Implante():
-        VerificarSerial()
-        if VerificarSerial == False:
-            pass #Añadir información al implante, considerando que ya tenemos serial y clase
+                except: ValueError, TypeError
+                print("Ingrese únicamente valores numéricos que no estén separados por puntos y/o comas")
+                continue
+                
+    def EliminarImplante(self):
+         while True:
+            try:
+                 i = AsignarTipoImplante()
+                 a = VerificarSerial()
+
+                 if a == True:
+                    for i in self.__IventarioImplantes:
+                         if i.ObtenerS == a:
+                              del i
+                              print(f"El implante con serial {i.ObtrenerS} y de tipo {i} ha sido eliminado del sistema")
+            except:  ValueError, TypeError
+        
+    
+
+ 
+     #eliminarlos, editar su información y visualizar el inventario completo.
