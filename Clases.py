@@ -3,6 +3,7 @@ class Implante():
         self.__tamaño = 0
         self.__material = ""
         self.__serial = int
+        self.__categoria = ""
 
     def AsignarT(self, t):
         self.__tamaño = t
@@ -10,6 +11,8 @@ class Implante():
         self.__material = m
     def AsignarS(self, s):
         self.__serial = s
+    def AsignarC(self,c):
+         self.__categoria = c
 
     def ObtenerT(self):
         return self.__tamaño
@@ -17,6 +20,8 @@ class Implante():
         return self.__material
     def ObtenerS(self):
         return self.__serial
+    def ObtenerC(self):
+         return self.__categoria
 
 class Marcapasos(Implante):
     def __init__(self):
@@ -130,19 +135,24 @@ def AsignarTipoImplante(self):
                 Tipo_Im = input("Ingrese el tipo de implante a buscar: \n1-Marcapasos\n2-Stent coronario\n3-Implante dental\n4-Implante cadera\n5-Implante rodilla")
                 if Tipo_Im == 1:
                     i = Marcapasos()
-                    return i
+                    i.__categoria = "Marcapasos"
+                    return i, i.ObtenerC
                 if Tipo_Im == 2:
                     i = Stent_Coronario()
-                    return i
+                    i.__categoria = "Stent coronario"
+                    return i, i.ObtenerC
                 if Tipo_Im == 3:
                     i = Implante_Dental()
-                    return i
+                    i.__categoria = "Implante dental"
+                    return i, i.ObtenerC
                 if Tipo_Im == 4:
                     i = Implante_Cadera()
-                    return i
+                    i.__categoria = "Prótesis de cadera"
+                    return i, i.ObtenerC
                 if Tipo_Im == 5:
                     i = Implante_Rodilla()
-                    return i
+                    i.__categoria = "Prótesis de rodilla"
+                    return i, i.ObtenerC
                 
             except: ValueError, TypeError
             print("Por favor ingrese uno de los valores numéricos asignados.")
@@ -227,7 +237,7 @@ class Sistema():
 
                  if a == True:
                     for i in self.__IventarioImplantes:
-                         if i.ObtenerS == a:
+                         if i.ObtenerS() == a:
                               del i
                               print(f"El implante con serial {i.ObtrenerS} y de tipo {i} ha sido eliminado del sistema")
             except:  ValueError, TypeError
@@ -239,7 +249,7 @@ class Sistema():
                     a = VerificarSerial()
                     if a == True:
                         for i in self.__IventarioImplantes:
-                            if i.ObtenerS == a:
+                            if i.ObtenerS() == a:
                                  print("Las modificaciones sólo pueden hacerse a un implante a la vez, dado que dependen del serial")
                                  cant_cambios = input("Seleccione que cambios desea hacer :\n1-Cambios generales (tamaño, material)\n2-Cambios propios del tipo de implante\n Marcapasos: Número de electrodos, frecuencia y tipo.\n Stent coronario: Longitud y diametro\n Implante dental: Sistema de fijación, forma. \n Prótesis de cadera: Forma. \n Prótesis de rodilla: Forma")
                                  if cant_cambios == 1:
@@ -278,5 +288,32 @@ class Sistema():
               except: ValueError, TypeError
               print("Es importante que en los campos donde hay opciones numéricas escoja una de las presentadas")
 
- 
+    def VisualizarInventario(self):
+         print(self.__IventarioImplantes)
+
+    def __str__(self):
+         c = len(self.__IventarioImplantes)
+         marc = []
+         ste = []
+         dent = []
+         cad = []
+         rod = []
+         
+         for i in range(c):
+              if i.ObtenerC() == "Marcapasos":
+                   marc.append(i)
+              if i.ObtenerC() == "Stent coronario":
+                   ste.append(i)
+              if i.ObtenerC() == "Implante dental":
+                   dent.append(i)
+              if i.ObtenerC() == "Prótesis de cadera":
+                   cad.append(i)
+              if i.ObtenerC() == "Prótesis de rodilla":
+                   rod.append(i)
+        
+         information1 = (f"En el inventario del sistema hay registrados {len(marc)+len(ste)+len(dent)+len(cad)+len(rod)} implantes,
+                        de los cuales a cada categoría le corresponden los siguientes:
+                        -MARCAPASOS ({len(marc)}) : {print(marc)}\n-STENT CORONARIO ({len(ste)}) : {print(ste)}\n-IMPLANTE DENTAL ({len(dent)}) : {print(dent)} \n-PRÓTESIS DE CADERA ({len(cad)}) : {print(cad)}\n-PRÓTESIS DE RODILLA({len(rod)}): {print(rod)} ")
+         return information1
+        
      #eliminarlos, editar su información y visualizar el inventario completo.
