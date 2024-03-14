@@ -133,23 +133,23 @@ def AsignarTipoImplante(self):
         while True:
             try:
                 Tipo_Im = input("Ingrese el tipo de implante a buscar: \n1-Marcapasos\n2-Stent coronario\n3-Implante dental\n4-Implante cadera\n5-Implante rodilla")
-                if Tipo_Im == 1:
+                if Tipo_Im == "1":
                     i = Marcapasos()
                     i.__categoria = "Marcapasos"
                     return i 
-                if Tipo_Im == 2:
+                if Tipo_Im == "2":
                     i = Stent_Coronario()
                     i.__categoria = "Stent coronario"
                     return i
-                if Tipo_Im == 3:
+                if Tipo_Im == "3":
                     i = Implante_Dental()
                     i.__categoria = "Implante dental"
                     return i
-                if Tipo_Im == 4:
+                if Tipo_Im == "4":
                     i = Implante_Cadera()
                     i.__categoria = "Prótesis de cadera"
                     return i
-                if Tipo_Im == 5:
+                if Tipo_Im == "5":
                     i = Implante_Rodilla()
                     i.__categoria = "Prótesis de rodilla"
                     return i
@@ -259,7 +259,7 @@ class Sistema():
                                       i.AsignarM(material)
                                       
                                  if cant_cambios == 2:
-                                      if i == 1:
+                                      if isinstance(i, Marcapasos):
                                         ne = int(input("Ingrese el número de electrodos: \n"))
                                         tipo = input("Ingrese el tipo del marcapasos: \n")
                                         frecuencia = input("Ingrese la frecuencia de estimulación del marcapasos: \n")
@@ -267,25 +267,25 @@ class Sistema():
                                         i.AsignarTipo(tipo)
                                         i.AsignarF(frecuencia)
                                         
-                                      if i ==2:
+                                      if isinstance(i, Stent_Coronario):
                                             long = input("Ingrese la longitud del Stent coronario: \n")
                                             diam = input("Ingrese el diámetro del Stent coronario: \n")
                                             i.AsignarLongitud(long)
                                             i.AsignarDiametro(diam)
-                                      if i ==3:
+                                      if isinstance(i, Implante_Dental):
                                             sfij = input("Ingrese el sistema de fijación del implante dental: \n")
                                             forma = input("Ingrese la forma del implante dental: \n")
                                             i.AsignarSF(sfij)
                                             i.AsignarForma(forma)
-                                      if i == 4:
+                                      if isinstance(i, Implante_Cadera):
                                             tfij = input("Ingrese el tipo de fijación de la prótesis de cadera: \n")
                                             i.AsignarTF(tfij)
                                 
-                                      if i == 5:
+                                      if isinstance(i, Implante_Rodilla):
                                             tfij = input("Ingrese el tipo de fijación de la prótesis de rodilla: \n")
                                             i.AsignarTF(tfij)
                                             pass        
-              except: ValueError, TypeError
+              except: (ValueError, TypeError)
               print("Es importante que en los campos donde hay opciones numéricas escoja una de las presentadas")
 
     def VisualizarInventario(self):
