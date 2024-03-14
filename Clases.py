@@ -136,23 +136,23 @@ def AsignarTipoImplante(self):
                 if Tipo_Im == 1:
                     i = Marcapasos()
                     i.__categoria = "Marcapasos"
-                    return i, i.ObtenerC
+                    return i 
                 if Tipo_Im == 2:
                     i = Stent_Coronario()
                     i.__categoria = "Stent coronario"
-                    return i, i.ObtenerC
+                    return i
                 if Tipo_Im == 3:
                     i = Implante_Dental()
                     i.__categoria = "Implante dental"
-                    return i, i.ObtenerC
+                    return i
                 if Tipo_Im == 4:
                     i = Implante_Cadera()
                     i.__categoria = "Prótesis de cadera"
-                    return i, i.ObtenerC
+                    return i
                 if Tipo_Im == 5:
                     i = Implante_Rodilla()
                     i.__categoria = "Prótesis de rodilla"
-                    return i, i.ObtenerC
+                    return i
                 
             except: ValueError, TypeError
             print("Por favor ingrese uno de los valores numéricos asignados.")
@@ -195,7 +195,7 @@ class Sistema():
                         m = input("Ingrese el material del implante: \n")
                         i.AsignarT(t)
                         i.AsignarM(m)
-                        if i == 1:
+                        if isinstance(i, Marcapasos):
                                 ne = int(input("Ingrese el número de electrodos: \n"))
                                 tipo = input("Ingrese el tipo del marcapasos: \n")
                                 frecuencia = input("Ingrese la frecuencia de estimulación del marcapasos: \n")
@@ -203,29 +203,29 @@ class Sistema():
                                 i.AsignarTipo(tipo)
                                 i.AsignarF(frecuencia)
                                 pass
-                        if i ==2:
+                        if isinstance(i, Stent_Coronario):
                                 long = input("Ingrese la longitud del Stent coronario: \n")
                                 diam = input("Ingrese el diámetro del Stent coronario: \n")
                                 i.AsignarLongitud(long)
                                 i.AsignarDiametro(diam)
                                 pass
-                        if i ==3:
+                        if isinstance(i, Implante_Dental):
                                 sfij = input("Ingrese el sistema de fijación del implante dental: \n")
                                 forma = input("Ingrese la forma del implante dental: \n")
                                 i.AsignarSF(sfij)
                                 i.AsignarForma(forma)
                                 pass
-                        if i == 4:
+                        if isinstance(i, Implante_Cadera):
                                 tfij = input("Ingrese el tipo de fijación de la prótesis de cadera: \n")
                                 i.AsignarTF(tfij)
                                 pass
-                        if i == 5:
+                        if isinstance(i, Implante_Rodilla):
                                 tfij = input("Ingrese el tipo de fijación de la prótesis de rodilla: \n")
                                 i.AsignarTF(tfij)
                                 pass
                     self.__IventarioImplantes.append(i)
 
-                except: ValueError, TypeError
+                except: (ValueError, TypeError)
                 print("Ingrese únicamente valores numéricos que no estén separados por puntos y/o comas")
                 continue
                 
@@ -311,9 +311,9 @@ class Sistema():
               if i.ObtenerC() == "Prótesis de rodilla":
                    rod.append(i)
         
-         information1 = (f"En el inventario del sistema hay registrados {len(marc)+len(ste)+len(dent)+len(cad)+len(rod)} implantes,
+         information1 = (f"""En el inventario del sistema hay registrados {len(marc)+len(ste)+len(dent)+len(cad)+len(rod)} implantes,
                         de los cuales a cada categoría le corresponden los siguientes:
-                        -MARCAPASOS ({len(marc)}) : {print(marc)}\n-STENT CORONARIO ({len(ste)}) : {print(ste)}\n-IMPLANTE DENTAL ({len(dent)}) : {print(dent)} \n-PRÓTESIS DE CADERA ({len(cad)}) : {print(cad)}\n-PRÓTESIS DE RODILLA({len(rod)}): {print(rod)} ")
+                        -MARCAPASOS ({len(marc)}) : {print(marc)}\n-STENT CORONARIO ({len(ste)}) : {print(ste)}\n-IMPLANTE DENTAL ({len(dent)}) : {print(dent)} \n-PRÓTESIS DE CADERA ({len(cad)}) : {print(cad)}\n-PRÓTESIS DE RODILLA({len(rod)}): {print(rod)} """)
          return information1
         
      #eliminarlos, editar su información y visualizar el inventario completo.

@@ -5,7 +5,7 @@ def main():
         try:
             print("¡Bienvenido al Sistema X!\nEscoja la acción a ejecutar.")
             sis = Sistema()
-            menu = int(input("1-Agregar implante\n2-Editar implante\n3-Eliminar implante\n4-Visualizar el inventario completo"))
+            menu = int(input("1-Agregar implante\n2-Editar implante\n3-Eliminar implante\n4-Visualizar el inventario completo\n5-Salir\nUsted ingresó: "))
             if menu == 1:
                 sis.IngresarImplante()
             if menu == 2:
@@ -20,7 +20,7 @@ def main():
                     break
                 if op1 == 2:
                     continue
-        except: ValueError, TypeError
+        except: (ValueError, TypeError)
         print("Por favor ingrese una de las opciones diseñadas")
         continue
         
